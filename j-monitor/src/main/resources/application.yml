@@ -1,0 +1,28 @@
+server:
+  port: 8001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+spring:
+  application:
+    name: j-monitor
+turbine:
+  app-config: service-feign,service-feign1,service-hi    ##需要监控的服务名
+  aggregator:
+    clusterConfig: default   ##需要监控的服务集群名，default
+  clusterNameExpression: new String("default")
+  combine-host-port: true
+#  combine-host: true
+  instanceUrlSuffix:
+    default: actuator/hystrix.stream    ##key是clusterConfig集群的名字，value是hystrix监控的后缀，springboot2.0为actuator/hystrix.stream
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+
+

@@ -1,0 +1,22 @@
+server:
+  port: 8778
+spring:
+  application:
+    name: service-feign1
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+#开启hystrix熔断器功能
+feign.hystrix.enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
