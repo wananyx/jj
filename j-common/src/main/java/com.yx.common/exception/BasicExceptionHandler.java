@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class BasicExceptionHandler {
 
     @ExceptionHandler(JException.class)
-    public ExceptionResult exceptionHandler(JException e){
-        return new ExceptionResult(e.getErrorEnums());
+    public ResponseEntity<ExceptionResult> exceptionHandler(JException e){
+        return ResponseEntity.status(e.getErrorEnums().code()).body(new ExceptionResult(e.getErrorEnums()));
     }
 
 }

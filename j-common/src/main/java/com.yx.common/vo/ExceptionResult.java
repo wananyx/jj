@@ -14,8 +14,8 @@ public class ExceptionResult {
     private Long timeStamp;
 
     public ExceptionResult(ErrorEnums e){
-        this.errCode = e.getCode();
-        this.errorMsg = e.getMessage();
+        this.errCode = e.code();
+        this.errorMsg = e.message();
         this.timeStamp = System.currentTimeMillis();
     }
 

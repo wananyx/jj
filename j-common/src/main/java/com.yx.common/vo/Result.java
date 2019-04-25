@@ -19,9 +19,26 @@ public class Result extends HashMap<String, Object> {
 		return result;
 	}
 
+	/**
+	 * 返回多个键值对map使用
+	 * @param map
+	 * @return
+	 */
 	public static Result ok(Map<String, Object> map) {
 		Result result = new Result();
 		result.putAll(map);
+		return result;
+	}
+
+	/**
+	 * 返回单个键值对map使用
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public static Result ok(String key, Object value) {
+		Result result = new Result();
+		result.put(key,value);
 		return result;
 	}
 

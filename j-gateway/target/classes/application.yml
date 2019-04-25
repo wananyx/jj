@@ -40,8 +40,8 @@ spring:
             args:
               name: fallbackcmd
               fallbackUri: forward:/fallback
-      - id: service-feign1
-        uri: lb://SERVICE-FEIGN1
+      - id: service-feign
+        uri: lb://SERVICE-FEIGN
         predicates:
           - Path=/service-feign1/**
                 # http://localhost:8769/service-feign/hi/aaa, 必须加上StripPrefix=1，否则访问服务时会带上service-feign
@@ -53,14 +53,23 @@ spring:
             args:
               name: fallbackcmd
               fallbackUri: forward:/fallback
+      - id: j-user-service
+        uri: lb://J-USER-SERVICE
+        predicates:
+          - Path=/api/user/**
+        filters:
+          - StripPrefix=1
 
 eureka:
   client:
     service-url:
       default-zone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
   instance:
-    prefer-ip-address: true
-    ip-address: 127.0.0.1
+      lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+      lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+      prefer-ip-address: true
+      ip-address: 127.0.0.1
+      instance-id: ${spring.application.name}:${server.port}
 #开启spring-Cloud-gateway的日志级别为debug
 logging:
   level:

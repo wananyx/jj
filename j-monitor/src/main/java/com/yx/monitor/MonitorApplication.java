@@ -13,6 +13,10 @@ import org.springframework.cloud.netflix.turbine.EnableTurbine;
 @EnableCircuitBreaker
 @EnableTurbine
 public class MonitorApplication {
+    /**
+     * http://localhost:8001/hystrix
+     * http://localhost:8001/turbine.stream
+     */
     public static void main(String[] args) {
         SpringApplication.run(MonitorApplication.class,args);
     }

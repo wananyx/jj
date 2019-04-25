@@ -1,0 +1,50 @@
+server:
+  port: 10010
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+    instance:
+      lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+      lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+      prefer-ip-address: true
+      ip-address: 127.0.0.1
+      instance-id: ${spring.application.name}:${server.port}
+spring:
+  application:
+    name: j-auth
+  redis:
+    host: local.redis.com
+    port: 6379
+    password:
+    timeout: 10s
+    lettuce:
+      pool:
+        min-idle: 0
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/cloud_oauth?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-test-query: SELECT 1
+  mvc:
+    servlet:
+      load-on-startup: 1
+access_token:
+  store-jwt: true
+  jwt-signing-key: jst1217@163.com
+  add-userinfo: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
