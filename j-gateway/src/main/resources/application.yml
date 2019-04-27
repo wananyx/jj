@@ -4,18 +4,7 @@ spring:
   application:
     name: j-gateway
   main:
-    #允许注册到eureka的名字和项目名一致
-    allow-bean-definition-overriding: true
-#  security:
-#    oauth2:
-#      client:
-#        client_id: system
-#        client_secret: system
-#        user-authorization-uri: http://127.0.0.1:10010/oauth/authorize
-#        access-token-uri: http://127.0.0.1:10010/oauth/token
-#      resource:
-#        user-info-uri: http://127.0.0.1:10010/user-me
-#        prefer-token-info: false
+    allow-bean-definition-overriding: true    #允许注册到eureka的名字和项目名一致
 zuul:
   ignored-services: '*'
   sensitiveHeaders:
@@ -44,10 +33,13 @@ eureka:
       prefer-ip-address: true
       ip-address: 127.0.0.1
       instance-id: ${spring.application.name}:${server.port}
-#开启spring-Cloud-gateway的日志级别为debug
-logging:
-  level:
-    org.springframework.cloud.gateway: trace
-    org.springframework.http.server.reactive: debug
-    org.springframework.web.reactive: debug
-    reactor.ipc.netty: debug
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 7000
+ribbon:
+  connetTimeout: 500
+  readTimeout: 5000

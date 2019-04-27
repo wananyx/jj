@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +21,7 @@ import javax.persistence.Table;
 @Table(name = "sys_user_role")
 public class UserRoleDO {
 
+  @Id
   @ApiModelProperty(value = "用户id", dataType = "Long", name = "userId", example = "12")
   private Long userId;
   @ApiModelProperty(value = "角色id", dataType = "Long", name = "roleId", example = "12")

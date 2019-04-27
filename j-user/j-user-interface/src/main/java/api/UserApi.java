@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
+/**
+ * 这样设置便于模块化管理，其他模块调用此模块时可直接继承此接口即可
+ */
 public interface UserApi {
     /**
      * 用户注册

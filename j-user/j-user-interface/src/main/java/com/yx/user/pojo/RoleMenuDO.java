@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +21,7 @@ import javax.persistence.Table;
 @Table(name = "sys_role_menu")
 public class RoleMenuDO {
 
+  @Id
   @ApiModelProperty(value = "角色id", dataType = "Long", name = "roleId", example = "12")
   private Long roleId;
 
