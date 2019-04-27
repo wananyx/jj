@@ -1,4 +1,4 @@
-package com.yx.user.config;
+package com.yx.auth.config;
 
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -11,25 +11,28 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @Author: JST
- * @Date: 2019/4/15 15:38
+ * @Date: 2019/4/26 11:47
  */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+
     public Docket createApi(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.yx.user.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.yx.auth.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
+
     // 创建api的基本信息
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("用户中心接口文档")
-                .description("用户中心接口文档")
-                .termsOfServiceUrl("http://localhost:8002")//这是关系到访问API文档的地址
+                .title("API接口文档")
+                .description("自动生成的哟!")
+//                .termsOfServiceUrl("http://127.0.0.1:"+port)
+                .termsOfServiceUrl("http://127.0.0.1:10010")
                 .version("1.0")
                 .build();
     }

@@ -3,20 +3,15 @@ package com.yx.gateway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@RestController
-@SpringBootApplication
+@EnableFeignClients
 @EnableDiscoveryClient
-//@EnableZuulProxy   原来gateway和zuul不是一个东西。。。😭
+@EnableZuulProxy
+@SpringBootApplication
 public class GatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class,args);
-    }
-
-    @RequestMapping("/fallback")
-    public String fallback(){
-        return "这是gateway的熔断器，我们发现你的服务挂了";
     }
 }

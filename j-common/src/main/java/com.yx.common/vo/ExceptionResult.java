@@ -9,13 +9,13 @@ import lombok.Data;
 @Data
 public class ExceptionResult {
 
-    private int errCode;
-    private String errorMsg;
+    private int code;
+    private String msg;
     private Long timeStamp;
 
     public ExceptionResult(ErrorEnums e){
-        this.errCode = e.code();
-        this.errorMsg = e.message();
+        this.code = e.code();
+        this.msg = e.msg();
         this.timeStamp = System.currentTimeMillis();
     }
 

@@ -17,13 +17,13 @@ public enum ErrorEnums {
 
 
     private int code;
-    private String message;
+    private String msg;
 
     public int code() {
         return this.code;
     }
 
-    public String message() {
-        return this.message;
+    public String msg() {
+        return this.msg;
     }
 }

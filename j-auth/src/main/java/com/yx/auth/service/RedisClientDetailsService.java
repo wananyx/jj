@@ -17,12 +17,9 @@ import javax.sql.DataSource;
 import java.util.List;
 
 /**
- * @Author: JST
- * @Date: 2019/4/23 10:09
- *
- * 将oauth_client_details表数据缓存到redis，毕竟该表改动非常小，而且数据很少，这里做个缓存优化<br>
- * 如果有通过界面修改client的需求的话，不要用JdbcClientDetailsService了，请用该类，否则redis里有缓存<br>
- * 如果手动修改了该表的数据，请注意清除redis缓存，是hash结构，key是client_details
+ * 将oauth_client_details表数据缓存到redis,毕竟该表改动非常小,而且数据很少,这里做个缓存优化
+ * 如果有通过界面修改client的需求的话,不要用JdbcClientDetailsService了,请用该类,否则redis里有缓存
+ * 如果手动修改了该表的数据,请注意清除redis缓存,是hash结构,key是client_details
  */
 @Slf4j
 @Service
@@ -99,14 +96,14 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
      * 将oauth_client_details全表刷入redis
      */
     public void loadAllClientToCache(){
-        //如果已经刷入数据了，就不刷了
+        //如果已经刷入数据了,就不刷了
         if(stringRedisTemplate.hasKey(CACHE_CLIENT_KEY) == Boolean.TRUE){
             return;
         }
         log.info("将oauth_client_details全表数据刷入redis");
         List<ClientDetails> list = super.listClientDetails();
         if(CollectionUtils.isEmpty(list)){
-            log.error("oauth_client_details表数据为空，请检查");
+            log.error("oauth_client_details表数据为空,请检查");
             return;
         }
         list.parallelStream().forEach(client ->{

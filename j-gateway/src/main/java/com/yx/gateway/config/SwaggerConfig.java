@@ -1,4 +1,4 @@
-package com.yx.user.config;
+package com.yx.gateway.config;
 
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -27,9 +27,9 @@ public class SwaggerConfig {
     // 创建api的基本信息
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("用户中心接口文档")
-                .description("用户中心接口文档")
-                .termsOfServiceUrl("http://localhost:8002")//这是关系到访问API文档的地址
+                .title("网关接口文档")
+                .description("网关接口文档")
+                .termsOfServiceUrl("http://localhost:8769")//这是关系到访问API文档的地址
                 .version("1.0")
                 .build();
     }

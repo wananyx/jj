@@ -30,15 +30,14 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import java.util.HashMap;
 
 /**
- * @Author: JST
- * @Date: 2019/4/19 9:31
+ * 认证服务器配置
  */
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
-     * 这个是认证管理器
+     * 认证管理器
      *
      * @see SecurityConfig 的authenticationManagerBean()
      */
@@ -65,27 +64,25 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * 使用jwt或redis的token
-     * 在这先使用redis的
      */
-    @Value("${access_token.store-jwt:false}")
+    @Value("${access_token.store-jwt}")
     private boolean storeWithJwt;
 
     /**
-     * 登陆后返回的json数据是否追加当前用户信息<br>
+     * 登陆后返回的json数据是否追加当前用户信息
      * 默认false
      */
-    @Value("${access_token.add-userinfo:false}")
+    @Value("${access_token.add-userinfo}")
     private boolean addUserInfo;
 
     /**
-     * jwt签名key，可随意指定<br>
-     * 如配置文件里不设置的话，冒号后面的是默认值
+     * jwt签名key,可随意指定
      */
-    @Value("${access_token.jwt-signing-key:jst1217hahahaha}")
+    @Value("${access_token.jwt-signing-key}")
     private String signingKey;
 
     /**
-     * 令牌存储,分为jwt和redis两种形式
+     * 令牌存储,分为jwt和redis的uuid两种形式
      */
     @Bean
     public TokenStore tokenStore() {
@@ -100,9 +97,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * Jwt资源令牌转换器<br>
+     * Jwt资源令牌转换器
      * 参数access_token.store-jwt为true时用到
-     *
      * @return
      */
     @Bean
@@ -120,7 +116,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         DefaultUserAuthenticationConverter userAuthenticationConverter = new DefaultUserAuthenticationConverter();
         userAuthenticationConverter.setUserDetailsService(userDetailsService);
         defaultAccessTokenConverter.setUserTokenConverter(userAuthenticationConverter);
-        //这里务必设置一个，否则多台认证中心的话，一旦使用jwt方式，access_token将解析错误
+        //这里务必设置一个,否则多台认证中心的话,一旦使用jwt方式,access_token将解析错误
         jwtAccessTokenConverter.setSigningKey(signingKey);
         return jwtAccessTokenConverter;
     }
@@ -146,15 +142,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 map.put("userInfo", user);//追加当前用户
                 defaultOAuth2AccessToken.setAdditionalInformation(map);
             }
-
-
         }
-
     }
 
     /**
      * 允许表单形式的认证
-     *
      * @param security
      * @throws Exception
      */
@@ -171,7 +163,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-//        //测试阶段可以这么玩，表示在内存中创建client，正式使用时一般使用数据库存储client信息
+//        //测试阶段可以这么玩,表示在内存中创建client,正式使用时一般使用数据库存储client信息
 //        clients.inMemory()
 //                .withClient("clientapp")
 //                .secret("112233")
@@ -179,9 +171,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 //                .authorizedGrantTypes("authorization_code,"password","refresh_token"")
 //                .scopes("read_info");
 
-        //使用数据库存储client信息
+//        //使用数据库存储client信息
+//        clients.jdbc(dataSource);
+        //将client信息刷到redis中
         clients.withClientDetails(redisClientDetailsService);
-        //将数据缓存到redis
+        //将client信息缓存到redis
         redisClientDetailsService.loadAllClientToCache();
     }
 
@@ -189,7 +183,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(this.authenticationManager);
         endpoints.tokenStore(tokenStore());
-        // 授权码模式下，code存储(原来使用的是jdbc数据库存储)
+        // 授权码模式下,code存储(原来使用的是jdbc数据库存储)
 // 		endpoints.authorizationCodeServices(new JdbcAuthorizationCodeServices(dataSource));
         endpoints.authorizationCodeServices(redisAuthorizationCodeServices);
         if(storeWithJwt){

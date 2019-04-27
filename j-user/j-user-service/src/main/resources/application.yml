@@ -2,7 +2,7 @@ server:
   port: 8002
 spring:
   application:
-    name: j-user-service
+    name: j-user
   datasource:
     url: jdbc:mysql://localhost:3306/jj?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
     username: root
@@ -22,6 +22,12 @@ eureka:
     prefer-ip-address: true
     ip-address: 127.0.0.1
     instance-id: ${spring.application.name}:${server.port}
+#调用access_token时必须加上此配置,从网关层访问认证服务器的user-me接口获取当前登录用户信息
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://127.0.0.1:10010/user-me
+      prefer-token-info: false
 management:
   endpoints:
     web:

@@ -28,7 +28,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/cloud_oauth?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
     username: root
     password: root
-    driver-class-name: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.jdbc.Driver
     hikari:
       minimum-idle: 5
       maximum-pool-size: 20
@@ -39,7 +39,7 @@ spring:
 access_token:
   store-jwt: true
   jwt-signing-key: jst1217@163.com
-  add-userinfo: true
+  add-userinfo: false
 management:
   endpoints:
     web:

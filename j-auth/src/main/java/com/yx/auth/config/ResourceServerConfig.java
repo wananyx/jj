@@ -11,8 +11,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Author: JST
- * @Date: 2019/4/19 9:45
+ * 资源服务器配置
  */
 @Configuration
 @EnableResourceServer
@@ -26,7 +25,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     }
 
     /**
-     * 判断来源请求是否包含oauth2授权信息<br>
+     * 判断来源请求是否包含oauth2授权信息
      * url参数中含有access_token,或者header里有Authorization
      */
     private static class OAuth2RequestedMatcher implements RequestMatcher {

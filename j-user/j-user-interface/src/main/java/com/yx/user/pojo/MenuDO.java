@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * @Author: JST
  * @Date: 2019/4/9 15:56
- * 菜单权限类，与角色为多对一关系
+ * 菜单权限类,与角色为多对一关系
  */
 @Data
 @ApiModel

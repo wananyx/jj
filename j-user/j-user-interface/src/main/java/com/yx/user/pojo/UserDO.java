@@ -5,8 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import tk.mybatis.mapper.annotation.KeySql;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
@@ -24,17 +26,20 @@ public class UserDO {
     @ApiModelProperty(value = "用户id",dataType = "Long", name = "id", example = "12")
     private Long id;
 
-    //字符串验证，在接收参数得时候加@Valid注解来验证
+    //字符串验证,在接收参数得时候加@Valid注解来验证
+    @NotBlank
     @Length(max = 30, min = 4, message = "用户名长度只能在4-30之间")
-    @ApiModelProperty(value = "用户名",dataType = "String", name = "username", example = "12")
+    @ApiModelProperty(value = "用户名",dataType = "String", name = "username", required = true, example = "12")
     private String username;
 
+    @NotBlank
     @Length(max = 100, min = 4, message = "密码长度只能在4-30之间")
-    @ApiModelProperty(value = "密码",dataType = "String", name = "password", example = "12")
+    @ApiModelProperty(value = "密码",dataType = "String", name = "password", required = true, example = "12")
     private String password;
 
+    @NotBlank
     @Length(max = 30, min = 2, message = "用户名长度只能在2-30之间")
-    @ApiModelProperty(value = "昵称",dataType = "String", name = "nickname", example = "12")
+    @ApiModelProperty(value = "昵称",dataType = "String", name = "nickname", required = true,  example = "12")
     private String nickname;
 
     @ApiModelProperty(value = "头像url",dataType = "String", name = "imgUrl", example = "192.168.12.12:8888/1.jpg")
@@ -47,7 +52,7 @@ public class UserDO {
     @ApiModelProperty(value = "性别",dataType = "String", name = "sex", example = "1 男 2 女")
     private String sex;
 
-    @ApiModelProperty(value = "状态（1有效,0无效）",dataType = "Boolean", name = "enabled", example = "1有效,0无效")
+    @ApiModelProperty(value = "状态（1有效,0无效）",dataType = "String", name = "enabled", example = "1有效,0无效")
     private String enabled;
 
     @ApiModelProperty(value = "类型",dataType = "String", name = "type", example = "手机/微信/账号密码")

@@ -10,12 +10,12 @@ spring:
 turbine:
   app-config: service-feign,service-feign1,service-hi    ##需要监控的服务名
   aggregator:
-    clusterConfig: default   ##需要监控的服务集群名，default
+    clusterConfig: default   ##需要监控的服务集群名,default
   clusterNameExpression: new String("default")
   combine-host-port: true
 #  combine-host: true
   instanceUrlSuffix:
-    default: actuator/hystrix.stream    ##key是clusterConfig集群的名字，value是hystrix监控的后缀，springboot2.0为actuator/hystrix.stream
+    default: actuator/hystrix.stream    ##key是clusterConfig集群的名字,value是hystrix监控的后缀,springboot2.0为actuator/hystrix.stream
 management:
   endpoints:
     web:

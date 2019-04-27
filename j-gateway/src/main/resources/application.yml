@@ -6,59 +6,33 @@ spring:
   main:
     #允许注册到eureka的名字和项目名一致
     allow-bean-definition-overriding: true
-  # spring cloud gateway 路由配置方式
-  cloud:
-    gateway:
-      #是否与服务发现组件进行结合，通过 serviceId(必须设置成大写) 转发到具体的服务实例。
-      #默认为false，设为true便开启通过服务中心的自动根据 serviceId 创建路由的功能
-      discovery:
-        locator:
-          #路由访问方式：http://Gateway_HOST:Gateway_PORT/大写的serviceId/**，其中微服务应用名默认大写访问。
-          enabled: false  #表示注册中心生效
-          lowerCaseServiceId: true  #这里微服务应用名默认设置为小写
-      routes:
-      #配置了一个路由service-hi， 当路径(- Path=/service-hi/hi/**)，就转发到服务(lb://SERVICE-HI)
-      #同时把路径中的service-hi这部分去掉(- StripPrefix=1)
-      - id: service-hi
-      # 重点！/info必须使用http进行转发，lb代表从注册中心获取服务
-        uri: lb://SERVICE-HI
-        predicates:
-          - Path=/service-hi/hi/**
-        filters:
-          - StripPrefix=1
-          #- RequestTime=true
-      - id: service-feign
-        uri: lb://SERVICE-FEIGN
-        predicates:
-          - Path=/service-feign/**
-          # http://localhost:8769/service-feign/hi/aaa, 必须加上StripPrefix=1，否则访问服务时会带上service-feign
-          #而不是我们期望的去掉service-feign，只保留**部分
-        filters:
-          - StripPrefix=1
-          #- RequestTime=true
-          - name: Hystrix
-            args:
-              name: fallbackcmd
-              fallbackUri: forward:/fallback
-      - id: service-feign
-        uri: lb://SERVICE-FEIGN
-        predicates:
-          - Path=/service-feign1/**
-                # http://localhost:8769/service-feign/hi/aaa, 必须加上StripPrefix=1，否则访问服务时会带上service-feign
-                #而不是我们期望的去掉service-feign，只保留**部分
-        filters:
-          - StripPrefix=1
-                #- RequestTime=true
-          - name: Hystrix
-            args:
-              name: fallbackcmd
-              fallbackUri: forward:/fallback
-      - id: j-user-service
-        uri: lb://J-USER-SERVICE
-        predicates:
-          - Path=/api/user/**
-        filters:
-          - StripPrefix=1
+#  security:
+#    oauth2:
+#      client:
+#        client_id: system
+#        client_secret: system
+#        user-authorization-uri: http://127.0.0.1:10010/oauth/authorize
+#        access-token-uri: http://127.0.0.1:10010/oauth/token
+#      resource:
+#        user-info-uri: http://127.0.0.1:10010/user-me
+#        prefer-token-info: false
+zuul:
+  ignored-services: '*'
+  sensitiveHeaders:
+  routes:
+    oauth:
+      path: /api/**
+      serviceId: j-auth
+    user:
+      path: /api/**
+      serviceId: j-user
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
+  add-proxy-headers: true
+  ribbon:
+    eager-load:
+      enabled: true
 
 eureka:
   client:
