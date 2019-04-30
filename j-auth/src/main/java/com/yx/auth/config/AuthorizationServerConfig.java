@@ -3,7 +3,7 @@ package com.yx.auth.config;
 import com.yx.auth.service.RandomAuthenticationKeyGenerator;
 import com.yx.auth.service.RedisAuthorizationCodeServices;
 import com.yx.auth.service.RedisClientDetailsService;
-import com.yx.user.pojo.LoginUser;
+import com.yx.user.entity.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

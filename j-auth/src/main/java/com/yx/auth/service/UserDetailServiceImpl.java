@@ -1,7 +1,7 @@
 package com.yx.auth.service;
 
 import com.yx.auth.feign.UserClient;
-import com.yx.user.pojo.LoginUser;
+import com.yx.user.entity.LoginUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;

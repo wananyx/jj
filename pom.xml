@@ -5,8 +5,6 @@
     <modules>
         <module>j-registry</module>
         <module>j-common</module>
-        <module>j-service-demo</module>
-        <module>j-service-feignDemo</module>
         <module>j-gateway</module>
         <module>j-monitor</module>
         <module>j-user</module>

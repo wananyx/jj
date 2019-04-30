@@ -22,28 +22,6 @@
             <version>2.0.1.RELEASE</version>
             <scope>compile</scope>
         </dependency>
-        <!-- 通用Mapper启动器 -->
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-        </dependency>
-        <!-- mysql驱动 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring</artifactId>
-            <version>1.0.5</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-base</artifactId>
-            <version>1.0.5</version>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>com.yx</groupId>
             <artifactId>j-user-interface</artifactId>
@@ -55,11 +33,24 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.yx</groupId>
-            <artifactId>j-user-interface</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

@@ -1,5 +1,5 @@
 server:
-  port: 8769
+  port: 10010
 spring:
   application:
     name: j-gateway

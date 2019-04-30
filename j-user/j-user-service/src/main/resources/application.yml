@@ -1,5 +1,5 @@
 server:
-  port: 8002
+  port: 10012
 spring:
   application:
     name: j-user
@@ -7,11 +7,29 @@ spring:
     url: jdbc:mysql://localhost:3306/jj?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
     username: root
     password: root
-mybatis:
-  typeAliasesPackage: com.yx.user.pojo
-  mapper-locations: classpath:/mybatis/*
+mybatis-plus:
+  typeAliasesPackage: com.yx.user.entity
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  global-config:
+    db-config:
+      #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+      id-type: AUTO
+      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #数据库大写下划线转换
+      #capital-mode: true
+      #逻辑删除配置
+      #logic-delete-value: 1
+      #logic-not-delete-value: 0
+      db-type: mysql
+    #刷新mapper 调试神器
+    refresh: true
   configuration:
     map-underscore-to-camel-case: true
+    cache-enabled: false
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #这个也是打印sql语句的
 eureka:
   client:
     service-url:
@@ -26,7 +44,7 @@ eureka:
 security:
   oauth2:
     resource:
-      user-info-uri: http://127.0.0.1:10010/user-me
+      user-info-uri: http://127.0.0.1:10011/user-me #先直接访问认证服务器的，回头改成网关的地址
       prefer-token-info: false
 management:
   endpoints:
@@ -36,3 +54,7 @@ management:
       cors:
         allowed-origins: "*"
         allowed-methods: "*"
+#打印sql语句
+logging:
+  level:
+    com.yx.user.mapper: DEBUG

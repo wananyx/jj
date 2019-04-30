@@ -8,16 +8,26 @@ import java.util.Map;
  */
 public class Result extends HashMap<String, Object> {
 
+    private int code;
+
+    private String msg;
+
 	public Result() {
 		put("code", 200);
 		put("msg", "操作成功");
 	}
+
+	public Result(int code, String msg){
+	    this.code = code;
+	    this.msg = msg;
+    }
 
 	public static Result ok(String msg) {
 		Result result = new Result();
 		result.put("msg", msg);
 		return result;
 	}
+
 
 	/**
 	 * 返回多个键值对map使用
