@@ -53,7 +53,7 @@ public class SysUser extends BaseEntity {
     /**
      * 性别
      */
-    private Boolean sex;
+    private String sex;
 
     /**
      * 状态（1有效,0无效）

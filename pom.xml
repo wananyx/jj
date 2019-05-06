@@ -2,6 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <groupId>com.yx</groupId>
+    <artifactId>jj</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
     <modules>
         <module>j-registry</module>
         <module>j-common</module>
@@ -14,25 +19,17 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.4.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
-    <groupId>com.yx</groupId>
-    <artifactId>jj</artifactId>
-    <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>jj</name>
-    <description>Demo project for Spring Boot</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
-        <mapper.starter.version>2.0.3</mapper.starter.version>
-        <!--<mysql.version>5.1.32</mysql.version>-->
-        <pageHelper.starter.version>1.2.5</pageHelper.starter.version>
-        <fastDFS.client.version>1.26.1-RELEASE</fastDFS.client.version>
-        <security-oauth2.version>2.3.3.RELEASE</security-oauth2.version>
+        <!--<mapper.starter.version>2.0.3</mapper.starter.version>-->
+        <!--<pageHelper.starter.version>1.2.5</pageHelper.starter.version>-->
+        <!--<security-oauth2.version>2.3.3.RELEASE</security-oauth2.version>-->
     </properties>
 
     <dependencyManagement>
@@ -45,67 +42,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- 通用Mapper启动器 -->
-            <dependency>
-                <groupId>tk.mybatis</groupId>
-                <artifactId>mapper-spring-boot-starter</artifactId>
-                <version>${mapper.starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>tk.mybatis</groupId>
-                <artifactId>mapper-core</artifactId>
-                <version>1.0.5</version>
-                <scope>compile</scope>
-            </dependency>
-
             <dependency>
                 <groupId>javax.persistence</groupId>
                 <artifactId>persistence-api</artifactId>
                 <version>1.0.2</version>
                 <scope>compile</scope>
             </dependency>
-            <!-- json -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>2.9.7</version>
-                <scope>compile</scope>
-            </dependency>
-            <!-- 字符串校验 -->
-            <dependency>
-                <groupId>org.hibernate.validator</groupId>
-                <artifactId>hibernate-validator</artifactId>
-            </dependency>
-            <!-- 分页助手启动器 -->
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${pageHelper.starter.version}</version>
-            </dependency>
-            <!-- mysql驱动 -->
-            <!--<dependency>-->
-                <!--<groupId>mysql</groupId>-->
-                <!--<artifactId>mysql-connector-java</artifactId>-->
-                <!--<version>${mysql.version}</version>-->
-            <!--</dependency>-->
-            <!--FastDFS客户端-->
-            <dependency>
-                <groupId>com.github.tobato</groupId>
-                <artifactId>fastdfs-client</artifactId>
-                <version>${fastDFS.client.version}</version>
-            </dependency>
-            <!-- 自动生成api文档依赖 -->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>2.8.0</version>
-            </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>2.8.0</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
     <dependencies>

@@ -3,6 +3,16 @@ server:
 spring:
   application:
     name: j-user
+  boot:
+    admin:
+      client:
+        url: http://localhost:10000
+        username: admin
+        password: admin
+        instance:
+          prefer-ip: true
+  main:
+    allow-bean-definition-overriding: true    #允许注册到eureka的名字和项目名一致
   datasource:
     url: jdbc:mysql://localhost:3306/jj?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
     username: root
@@ -32,11 +42,13 @@ mybatis-plus:
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #这个也是打印sql语句的
 eureka:
   client:
+    registryFetchIntervalSeconds: 5 #表示eureka client间隔多久去拉取服务注册信息，默认为30秒
     service-url:
       defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
   instance:
     lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
     lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+    health-check-url-path: /actuator/health #admin 健康监测
     prefer-ip-address: true
     ip-address: 127.0.0.1
     instance-id: ${spring.application.name}:${server.port}
@@ -51,9 +63,12 @@ management:
     web:
       exposure:
         include: "*"
-      cors:
-        allowed-origins: "*"
-        allowed-methods: "*"
+#      cors:
+#        allowed-origins: "*"
+#        allowed-methods: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 #打印sql语句
 logging:
   level:

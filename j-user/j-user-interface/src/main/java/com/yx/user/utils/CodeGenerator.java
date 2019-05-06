@@ -17,6 +17,7 @@ import java.util.Scanner;
 /**
  * @Author: JST
  * @Date: 2019/4/30 10:07
+ * 根据数据库表自动生成实体类、mapper、service文件
  */
 public class CodeGenerator {
     /**

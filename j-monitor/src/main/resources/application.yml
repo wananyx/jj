@@ -1,21 +1,44 @@
 server:
-  port: 8001
+  port: 10000
+spring:
+  application:
+    name: j-monitor
+  profiles:
+    active: secure
+  security:
+    user:
+      name: admin
+      password: admin
 eureka:
   client:
     service-url:
       defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
-spring:
-  application:
-    name: j-monitor
-turbine:
-  app-config: service-feign,service-feign1,service-hi    ##需要监控的服务名
-  aggregator:
-    clusterConfig: default   ##需要监控的服务集群名,default
-  clusterNameExpression: new String("default")
-  combine-host-port: true
-#  combine-host: true
-  instanceUrlSuffix:
-    default: actuator/hystrix.stream    ##key是clusterConfig集群的名字,value是hystrix监控的后缀,springboot2.0为actuator/hystrix.stream
+  instance:
+    lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+    lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+
+
+#turbine:
+#  app-config: j-auth,j-user,j-gateway    ##需要监控的服务名
+#  aggregator:
+#    clusterConfig: default   ##需要监控的服务集群名,default
+#  clusterNameExpression: new String("default")
+#  combine-host-port: true
+##  combine-host: true
+#  instanceUrlSuffix:
+#    default: actuator/hystrix.stream    ##key是clusterConfig集群的名字,value是hystrix监控的后缀,springboot2.0为actuator/hystrix.stream
+#调用access_token时必须加上此配置,从网关层访问认证服务器的user-me接口获取当前登录用户信息
+#security:
+#  oauth2:
+#    resource:
+#      user-info-uri: http://127.0.0.1:10011/user-me #先直接访问认证服务器的，回头改成网关的地址
+#      prefer-token-info: false
 management:
   endpoints:
     web:
@@ -24,5 +47,8 @@ management:
       cors:
         allowed-origins: "*"
         allowed-methods: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 

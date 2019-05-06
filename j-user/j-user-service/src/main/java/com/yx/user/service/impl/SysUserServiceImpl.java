@@ -53,6 +53,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
 
         SysUser user = list.get(0);
+        user.setSex("0".equals(user.getSex())?"男":"女" );
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(user, loginUser);
         //根据用户id查询角色信息

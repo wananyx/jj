@@ -5,7 +5,7 @@
     <parent>
         <artifactId>j-user</artifactId>
         <groupId>com.yx</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>com.yx</groupId>
             <artifactId>j-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
     </dependencies>

@@ -1,5 +1,6 @@
 package com.yx.gateway.feign;
 
+import com.yx.gateway.feign.hystrix.Oauth2ClientHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +12,7 @@ import java.util.Map;
  * @Author: JST
  * @Date: 2019/4/27 14:34
  */
-@FeignClient(value = "j-auth")
+@FeignClient(value = "j-auth",fallback = Oauth2ClientHystrix.class)
 public interface Oauth2Client {
 
     /**

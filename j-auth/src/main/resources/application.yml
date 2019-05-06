@@ -4,6 +4,16 @@ server:
 spring:
   application:
     name: j-auth
+  boot:
+    admin:
+      client:
+        url: http://localhost:10000
+        username: admin
+        password: admin
+        instance:
+          prefer-ip: true
+  main:
+    allow-bean-definition-overriding: true    #允许注册到eureka的名字和项目名一致
   redis:
     host: local.redis.com
     port: 6379
@@ -16,7 +26,7 @@ spring:
         max-idle: 8
         max-wait: -1ms
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/cloud_oauth?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/cloud_oauth?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver
@@ -29,14 +39,16 @@ spring:
       load-on-startup: 1
 eureka:
   client:
+    registryFetchIntervalSeconds: 5 #表示eureka client间隔多久去拉取服务注册信息，默认为30秒
     service-url:
       defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
-    instance:
-      lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
-      lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
-      prefer-ip-address: true
-      ip-address: 127.0.0.1
-      instance-id: ${spring.application.name}:${server.port}
+  instance:
+    lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+    lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+    health-check-url-path: /actuator/health #admin 健康监测
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}
 access_token:
   store-jwt: true
   jwt-signing-key: jst1217@163.com
@@ -48,4 +60,4 @@ management:
         include: "*"
   endpoint:
     health:
-      show-details: always
+      show-details: ALWAYS
