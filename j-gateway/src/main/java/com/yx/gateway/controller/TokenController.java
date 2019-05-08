@@ -28,6 +28,7 @@ public class TokenController {
      * @param username
      * @param password
      * @return access_token和refresh_token
+     * 生成的access_token可去 https://jwt.io/ 进行解码
      */
     @PostMapping("/sys/login")
     public Map<String,Object> login(String username,String password){

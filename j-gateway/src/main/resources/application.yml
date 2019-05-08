@@ -3,6 +3,10 @@ server:
 spring:
   application:
     name: j-gateway
+  # 允许注册到eureka的名字和项目名一致
+  main:
+    allow-bean-definition-overriding: true
+  # 设置admin监控中心配置
   boot:
     admin:
       client:
@@ -11,8 +15,14 @@ spring:
         password: admin
         instance:
           prefer-ip: true
-  main:
-    allow-bean-definition-overriding: true    #允许注册到eureka的名字和项目名一致
+  # 设置zipkin+sleuth链路追踪配置
+  zipkin:
+      base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      percentage: 1.0 # 该值介于0.0到1.0之间，1.0则表示全部采集
+
+# zuul网关的核心配置
 zuul:
   ignored-services: '*'
   sensitiveHeaders:
@@ -30,6 +40,8 @@ zuul:
   ribbon:
     eager-load:
       enabled: true
+
+#服务注册相关配置
 eureka:
   client:
     registryFetchIntervalSeconds: 5 #表示eureka client间隔多久去拉取服务注册信息，默认为30秒
@@ -52,11 +64,13 @@ hystrix:
 ribbon:
   connetTimeout: 500
   readTimeout: 5000
+
+# 监控相关配置
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "*"   # 配置启用所有的监控端点
   endpoint:
     health:
-      show-details: ALWAYS
+      show-details: ALWAYS # 显示详情, 该值除了always之外还有when-authorized、never，默认值是never。

@@ -1,0 +1,48 @@
+server:
+  port: 10000
+spring:
+  application:
+    name: j-admin
+  profiles:
+    active: secure #使用secure配置，该配置声明在启动类AdminApplication中
+  security: #设置登陆admin的账号密码
+    user:
+      name: admin
+      password: admin
+#服务注册相关配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+    lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}
+    metadata-map: #admin server端配置参数
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+
+
+#turbine:
+#  app-config: j-auth,j-user,j-gateway    ##需要监控的服务名
+#  aggregator:
+#    clusterConfig: default   ##需要监控的服务集群名,default
+#  clusterNameExpression: new String("default")
+#  combine-host-port: true
+##  combine-host: true
+#  instanceUrlSuffix:
+#    default: actuator/hystrix.stream    ##key是clusterConfig集群的名字,value是hystrix监控的后缀,springboot2.0为actuator/hystrix.stream
+
+# 监控相关配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"   # 配置启用所有的监控端点
+  endpoint:
+    health:
+      show-details: ALWAYS # 显示详情, 该值除了always之外还有when-authorized、never，默认值是never。
+
+

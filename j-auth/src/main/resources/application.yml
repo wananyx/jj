@@ -1,9 +1,12 @@
 server:
   port: 10011
-
 spring:
   application:
     name: j-auth
+  # 允许注册到eureka的名字和项目名一致
+  main:
+    allow-bean-definition-overriding: true
+  # 设置admin监控中心配置
   boot:
     admin:
       client:
@@ -12,8 +15,13 @@ spring:
         password: admin
         instance:
           prefer-ip: true
-  main:
-    allow-bean-definition-overriding: true    #允许注册到eureka的名字和项目名一致
+  # 设置zipkin+sleuth链路追踪配置
+  zipkin:
+      base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      percentage: 1.0 # 该值介于0.0到1.0之间，1.0则表示全部采集
+  # 配置redis
   redis:
     host: local.redis.com
     port: 6379
@@ -25,6 +33,7 @@ spring:
         max-active: 8
         max-idle: 8
         max-wait: -1ms
+  # 设置数据源
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/cloud_oauth?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
@@ -34,9 +43,11 @@ spring:
       minimum-idle: 5
       maximum-pool-size: 20
       connection-test-query: SELECT 1
-  mvc:
-    servlet:
-      load-on-startup: 1
+#  mvc:
+#    servlet:
+#      load-on-startup: 1
+
+#服务注册相关配置
 eureka:
   client:
     registryFetchIntervalSeconds: 5 #表示eureka client间隔多久去拉取服务注册信息，默认为30秒
@@ -49,15 +60,19 @@ eureka:
     prefer-ip-address: true
     ip-address: 127.0.0.1
     instance-id: ${spring.application.name}:${server.port}
+
+# 生成access_token相关配置
 access_token:
-  store-jwt: true
-  jwt-signing-key: jst1217@163.com
-  add-userinfo: false
+  store-jwt: true # 是否使用jwt token，false为redis token
+  jwt-signing-key: jst1217@163.com # 生成jwt token所需的签名
+  add-userinfo: false # 是否在返回access_token加上用户信息
+
+# 监控相关配置
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "*"   # 配置启用所有的监控端点
   endpoint:
     health:
-      show-details: ALWAYS
+      show-details: ALWAYS # 显示详情, 该值除了always之外还有when-authorized、never，默认值是never。

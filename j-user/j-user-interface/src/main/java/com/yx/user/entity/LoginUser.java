@@ -23,16 +23,21 @@ public class LoginUser extends SysUser implements UserDetails {
 
     private Set<String> authority;
 
+    /**
+     * @see org.springframework.security.core.userdetails.User
+     * 将权限信息赋值给框架用户实体类，用于鉴权( 在方法上添加@PreAuthorize("hasRole('ROLE_ADMIN')") )
+     */
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new HashSet<>();
+
         if (!CollectionUtils.isEmpty(roles)) {
             roles.forEach(role -> {
-                if (role.getRoleName().startsWith("ROLE_")) {
-                    collection.add(new SimpleGrantedAuthority(role.getRoleName()));
+                if (role.getCode().startsWith("ROLE_")) {
+                    collection.add(new SimpleGrantedAuthority(role.getCode()));
                 } else {
-                    collection.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
+                    collection.add(new SimpleGrantedAuthority("ROLE_" + role.getCode()));
                 }
             });
         }
