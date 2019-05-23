@@ -1,0 +1,6 @@
+# 目的是为了在启动springboot时,将LogAop，LogAutoConfig作为一个Bean注入到Spring中
+# 参见项目依赖包spring-boot-autoconfigure.jar 下META-INF.spring.factories
+# 主要依赖@EnableAutoConfiguration注解实现
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.yx.log.autoconfigure.LogAutoConfig,\
+com.yx.log.autoconfigure.LogAop

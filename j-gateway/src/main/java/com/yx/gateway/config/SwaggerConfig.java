@@ -20,7 +20,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.yx.user.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.yx.gateway.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -29,7 +29,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("网关接口文档")
                 .description("网关接口文档")
-                .termsOfServiceUrl("http://localhost:8769")//这是关系到访问API文档的地址
+                .termsOfServiceUrl("http://localhost:10010")//这是关系到访问API文档的地址
                 .version("1.0")
                 .build();
     }

@@ -50,7 +50,7 @@ public class TokenController {
      * @param refresh_token
      * @return
      */
-    @PostMapping("/sys/refresh_token")
+    @PostMapping("/sys/refresh")
     public Map<String,Object> refreshToken(String refresh_token){
         Map<String, Object> params = new HashMap<>();
         params.put(OAuth2Utils.GRANT_TYPE,"refresh_token");

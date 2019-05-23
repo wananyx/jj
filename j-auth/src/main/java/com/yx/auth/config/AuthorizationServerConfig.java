@@ -62,6 +62,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private RedisClientDetailsService redisClientDetailsService;
 
+//    @Autowired
+//    private DataSource dataSource;
+
     /**
      * 使用jwt或redis的token
      */

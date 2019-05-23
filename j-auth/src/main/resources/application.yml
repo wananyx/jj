@@ -1,3 +1,7 @@
+app:
+  id: j-auth
+apollo:
+  meta: http://localhost:8080
 server:
   port: 10011
 spring:
@@ -40,9 +44,9 @@ spring:
     password: root
     driverClassName: com.mysql.jdbc.Driver
     hikari:
-      minimum-idle: 5
-      maximum-pool-size: 20
-      connection-test-query: SELECT 1
+      minimum-idle: 5 #指定连接维护的最小空闲连接数
+      maximum-pool-size: 20 #指定连接池最大的连接数
+      connection-test-query: SELECT 1 #指定校验连接合法性执行的sql语句
 #  mvc:
 #    servlet:
 #      load-on-startup: 1

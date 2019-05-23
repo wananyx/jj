@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableHystrix
 @EnableHystrixDashboard
 @EnableTransactionManagement
+//@EnableApolloConfig
 @MapperScan(value = "com.yx.user.mapper")
 public class UserApplication {
     public static void main(String[] args) {

@@ -1,11 +1,12 @@
 package com.yx.user.controller;
 
 
+import com.yx.common.utils.SecurityUtils;
 import com.yx.common.vo.Result;
+import com.yx.log.entity.LogAnnotation;
 import com.yx.user.entity.LoginUser;
 import com.yx.user.entity.SysUser;
 import com.yx.user.service.ISysUserService;
-import com.yx.user.utils.SecurityUtils;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,7 @@ public class SysUserController {
      * @param user User实体类
      * @return
      */
+    @LogAnnotation(module = "用户操作")
     @ApiOperation(value = "注册新用户",notes = "注册新用户")
     @ApiImplicitParam(name = "user", value = "User实体类",required = true, dataType = "User")
     @PostMapping("/register")
@@ -62,6 +64,7 @@ public class SysUserController {
      * 查询所有用户列表
      * @return
      */
+    @LogAnnotation(module = "用户模块")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "查询所有用户列表",notes = "查询所有用户列表")
     @GetMapping("/listUser")
