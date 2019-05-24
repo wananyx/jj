@@ -1,5 +1,6 @@
 package com.yx.gateway;
 
+import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -15,6 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @EnableDiscoveryClient
 @EnableZuulProxy
+@EnableApolloConfig
 @SpringBootApplication
 public class GatewayApplication {
     public static void main(String[] args) {

@@ -1,3 +1,7 @@
+app:
+  id: j-log
+apollo:
+  meta: http://localhost:8080
 server:
   port: 10017
 spring:

@@ -1,5 +1,6 @@
 package com.yx.log;
 
+import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 @EnableHystrix
 @EnableCircuitBreaker
 @EnableDiscoveryClient
+@EnableApolloConfig
 @SpringBootApplication
 @MapperScan(value = "com.yx.log.mapper")
 public class LogApplication {
