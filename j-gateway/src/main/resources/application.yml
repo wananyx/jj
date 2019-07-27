@@ -14,7 +14,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:10000
+        url: http://localhost:11111
         username: admin
         password: admin
         instance:

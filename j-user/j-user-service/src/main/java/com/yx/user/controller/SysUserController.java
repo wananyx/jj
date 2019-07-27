@@ -1,6 +1,7 @@
 package com.yx.user.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.yx.common.utils.SecurityUtils;
 import com.yx.common.vo.Result;
 import com.yx.log.entity.LogAnnotation;
@@ -11,11 +12,13 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import redis.clients.jedis.JedisCluster;
 
 import java.util.List;
 
@@ -34,6 +37,12 @@ public class SysUserController {
 
     @Autowired
     private ISysUserService userService;
+
+    @Autowired
+    private JedisCluster jedisCluster;
+
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
 
     /**
      * 获取当前登陆用户
@@ -81,7 +90,15 @@ public class SysUserController {
      */
     @GetMapping("/anon/findUsername")
     public LoginUser findUsername(String username){
-        LoginUser user = userService.findUsername(username);
+        String key = "/user/anon/findUsername:"+username;
+        LoginUser user = null;
+        Object s = redisTemplate.opsForValue().get(key);
+        if(s == null){
+            user = userService.findUsername(username);
+            redisTemplate.opsForValue().set(key,user);
+        }else {
+            user = JSON.parseObject(JSON.toJSONString(s),LoginUser.class);
+        }
         return user;
     }
 

@@ -14,7 +14,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:10000
+        url: http://localhost:11111
         username: admin
         password: admin
         instance:
@@ -30,6 +30,18 @@ spring:
     url: jdbc:mysql://localhost:3306/jj?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: root
+  #rediscluster配置
+  redis:
+    cluster:
+      nodes: 192.168.116.130:7000,192.168.116.130:7001,192.168.116.130:7002,192.168.116.130:7003,192.168.116.130:7004,192.168.116.130:7005
+      testOnReturn: true
+      maxIdle: 10
+      minIdle: 2
+      maxWaitMills: 3000
+      soTimeout: 3000
+      testOnBorrow: true
+      connectionTimeout: 3000
+      maxAttempts: 3
 # 数据持久层框架mybatis-plus配置
 mybatis-plus:
   typeAliasesPackage: com.yx.user.entity

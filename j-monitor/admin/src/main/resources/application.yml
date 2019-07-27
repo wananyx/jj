@@ -1,5 +1,5 @@
 server:
-  port: 10000
+  port: 11111
 spring:
   application:
     name: j-admin
@@ -17,23 +17,13 @@ eureka:
   instance:
     lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
     lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+    health-check-url-path: /actuator/health #admin 健康监测
     prefer-ip-address: true
     ip-address: 127.0.0.1
     instance-id: ${spring.application.name}:${server.port}
-    metadata-map: #admin server端配置参数
+    metadata-map: #admin server端配置参数,为了能注册在eureka中
       user.name: ${spring.security.user.name}
       user.password: ${spring.security.user.password}
-
-
-#turbine:
-#  app-config: j-auth,j-user,j-gateway    ##需要监控的服务名
-#  aggregator:
-#    clusterConfig: default   ##需要监控的服务集群名,default
-#  clusterNameExpression: new String("default")
-#  combine-host-port: true
-##  combine-host: true
-#  instanceUrlSuffix:
-#    default: actuator/hystrix.stream    ##key是clusterConfig集群的名字,value是hystrix监控的后缀,springboot2.0为actuator/hystrix.stream
 
 # 监控相关配置
 management:
@@ -45,4 +35,13 @@ management:
     health:
       show-details: ALWAYS # 显示详情, 该值除了always之外还有when-authorized、never，默认值是never。
 
+#turbine:
+#  app-config: j-auth,j-user,j-gateway    ##需要监控的服务名
+#  aggregator:
+#    clusterConfig: default   ##需要监控的服务集群名,default
+#  clusterNameExpression: new String("default")
+#  combine-host-port: true
+##  combine-host: true
+#  instanceUrlSuffix:
+#    default: actuator/hystrix.stream    ##key是clusterConfig集群的名字,value是hystrix监控的后缀,springboot2.0为actuator/hystrix.stream
 
